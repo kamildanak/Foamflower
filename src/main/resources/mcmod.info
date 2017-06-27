@@ -1,0 +1,13 @@
+[
+{
+  "modid": "foamflower",
+  "name": "Foamflower",
+  "description": "Minecraft GUI library.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "logoFile": "assets/foamflower/icon.png",
+  "url": "https://github.com/kamildanak/Foamflower",
+  "authorList": ["kamildanak"],
+  "screenshots": []
+}
+]
