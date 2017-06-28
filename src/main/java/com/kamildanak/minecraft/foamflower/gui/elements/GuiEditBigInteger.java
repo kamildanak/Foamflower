@@ -1,6 +1,5 @@
 package com.kamildanak.minecraft.foamflower.gui.elements;
 
-
 import com.kamildanak.minecraft.foamflower.gui.input.InputKeyboardEvent;
 
 import java.awt.event.KeyEvent;
@@ -50,5 +49,17 @@ public class GuiEditBigInteger extends GuiEdit {
 
         ev.handled = true;
 
+    }
+
+    @Override
+    public int getHeight() {
+        if (hidden) return 0;
+        return h;
+    }
+
+    @Override
+    public int getWidth() {
+        if (hidden) return 0;
+        return w;
     }
 }

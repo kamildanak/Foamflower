@@ -4,7 +4,6 @@ import com.kamildanak.minecraft.foamflower.gui.input.InputMouseEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.audio.SoundHandler;
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.SoundEvents;
 
@@ -13,11 +12,10 @@ public class GuiExButton extends GuiElement {
     public TexturedBox boxDisabled;
     public TexturedBox boxNormal;
     public TexturedBox boxOver;
-    protected String caption;
     int u, v, texw, texh;
     int borderTop, borderRight, borderBottom, borderLeft;
     boolean over;
-
+    private String caption;
     public GuiExButton(int x, int y, int w, int h, String caption) {
         this(x, y, w, h, caption, "textures/gui/widgets.png");
     }
@@ -41,6 +39,10 @@ public class GuiExButton extends GuiElement {
 
     }
 
+    public void setCaption(String caption) {
+        this.caption = I18n.format(caption).trim();
+    }
+
     public void onClick() {
     }
 
@@ -56,9 +58,8 @@ public class GuiExButton extends GuiElement {
             box = boxOver;
             color = 0xffffff70;
         }
-        FontRenderer fontRenderer = gui.fontRenderer();
         box.render(gui, x, y, w, h);
-        gui.drawCenteredString(fontRenderer, caption, x + w / 2, y + h / 4 + 1, color);
+        gui.drawCenteredString(caption, x + w / 2, y + h / 4 + 5, color);
     }
 
     @Override
@@ -75,5 +76,17 @@ public class GuiExButton extends GuiElement {
         SoundHandler soundHandler = new SoundHandler(mc.getResourceManager(), mc.gameSettings);
         soundHandler.playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1.0F));
         onClick();
+    }
+
+    @Override
+    public int getHeight() {
+        if (hidden) return 0;
+        return h;
+    }
+
+    @Override
+    public int getWidth() {
+        if (hidden) return 0;
+        return w;
     }
 }

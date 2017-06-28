@@ -4,7 +4,9 @@ import com.kamildanak.minecraft.foamflower.Utils;
 import com.kamildanak.minecraft.foamflower.gui.elements.GuiElement;
 import com.kamildanak.minecraft.foamflower.gui.input.InputKeyboardEvent;
 import com.kamildanak.minecraft.foamflower.gui.input.InputMouseEvent;
+import com.kamildanak.minecraft.foamflower.gui.layouts.AbsoluteLayout;
 import com.kamildanak.minecraft.foamflower.inventory.DummyContainer;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Container;
@@ -14,7 +16,7 @@ import org.lwjgl.opengl.GL11;
 
 import java.io.IOException;
 
-public class GuiScreenPlus extends GuiContainer {
+public class GuiScreenPlus extends GuiContainer implements IGuiWrapper {
     public int screenW;
     public int screenH;
     public int screenX;
@@ -31,7 +33,7 @@ public class GuiScreenPlus extends GuiContainer {
 
     public GuiScreenPlus(Container container, int w, int h, String backgroundTexture) {
         super(container);
-        root = new GuiElement(0, 0, w, h);
+        root = new AbsoluteLayout(0, 0);
         root.gui = this;
         this.screenW = w;
         this.screenH = h;
@@ -213,5 +215,13 @@ public class GuiScreenPlus extends GuiContainer {
 
     public void bindTexture(String tex) {
         Utils.bind(tex);
+    }
+
+    public Minecraft getMinecraft() {
+        return mc;
+    }
+
+    public void drawTexturedRectangle(int x, int y, int textureX, int textureY, int width, int height) {
+        super.drawTexturedModalRect(x, y, textureX, textureY, width, height);
     }
 }
