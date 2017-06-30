@@ -1,9 +1,8 @@
 def mcVersion         = "1.12"
 def majorModVersion   = "0"
-def apiModVersion     = "0"
 def minorModVersion   = "1"
 def patchVersion = "1"
-version = mcVersion+"-"+majorModVersion+"."+apiModVersion+"."+minorModVersion+"."+patchVersion
+version = mcVersion+"-"+majorModVersion+"."+minorModVersion+"."+patchVersion
 
 buildscript {
     repositories {

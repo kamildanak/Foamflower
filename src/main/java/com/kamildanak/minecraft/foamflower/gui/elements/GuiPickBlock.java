@@ -244,7 +244,9 @@ public class GuiPickBlock extends InventoryEffectRenderer {
             int j = mouseY - this.guiTop;
 
             for (CreativeTabs creativetabs : CreativeTabs.CREATIVE_TAB_ARRAY) {
-                if (creativetabs != null && this.isMouseOverTab(creativetabs, i, j) && creativetabs != CreativeTabs.INVENTORY) {
+                if (creativetabs != null && this.isMouseOverTab(creativetabs, i, j)
+                        && creativetabs != CreativeTabs.INVENTORY
+                        && creativetabs != CreativeTabs.HOTBAR) {
                     this.setCurrentCreativeTab(creativetabs);
                     return;
                 }
@@ -259,7 +261,9 @@ public class GuiPickBlock extends InventoryEffectRenderer {
      */
     private boolean needsScrollBars() {
         if (CreativeTabs.CREATIVE_TAB_ARRAY[selectedTabIndex] == null) return false;
-        return selectedTabIndex != CreativeTabs.INVENTORY.getTabIndex() && CreativeTabs.CREATIVE_TAB_ARRAY[selectedTabIndex].shouldHidePlayerInventory() && ((ContainerPickBlock) this.inventorySlots).canScroll();
+        return selectedTabIndex != CreativeTabs.INVENTORY.getTabIndex() &&
+                selectedTabIndex != CreativeTabs.HOTBAR.getTabIndex() &&
+                CreativeTabs.CREATIVE_TAB_ARRAY[selectedTabIndex].shouldHidePlayerInventory() && ((ContainerPickBlock) this.inventorySlots).canScroll();
     }
 
     /**
@@ -355,6 +359,7 @@ public class GuiPickBlock extends InventoryEffectRenderer {
         for (CreativeTabs creativetabs : java.util.Arrays.copyOfRange(CreativeTabs.CREATIVE_TAB_ARRAY, start, end)) {
             if (creativetabs == null) continue;
             if (creativetabs == CreativeTabs.INVENTORY) continue;
+            if (creativetabs == CreativeTabs.HOTBAR) continue;
             if (this.renderCreativeInventoryHoveringText(creativetabs, mouseX, mouseY)) {
                 rendered = true;
                 break;
@@ -433,6 +438,7 @@ public class GuiPickBlock extends InventoryEffectRenderer {
 
             if (creativetabs1 == null) continue;
             if (creativetabs1 == CreativeTabs.INVENTORY) continue;
+            if (creativetabs1 == CreativeTabs.HOTBAR) continue;
             if (creativetabs1.getTabIndex() != selectedTabIndex) {
                 this.drawTab(creativetabs1);
             }
@@ -459,7 +465,9 @@ public class GuiPickBlock extends InventoryEffectRenderer {
         }
 
         if (creativetabs == null || creativetabs.getTabPage() != tabPage) {
-            if (creativetabs != CreativeTabs.SEARCH && creativetabs != CreativeTabs.INVENTORY) {
+            if (creativetabs != CreativeTabs.SEARCH
+                    && creativetabs != CreativeTabs.INVENTORY
+                    && creativetabs != CreativeTabs.HOTBAR) {
                 return;
             }
         }
@@ -472,7 +480,9 @@ public class GuiPickBlock extends InventoryEffectRenderer {
      */
     protected boolean isMouseOverTab(CreativeTabs tab, int mouseX, int mouseY) {
         if (tab.getTabPage() != tabPage) {
-            if (tab != CreativeTabs.SEARCH && tab != CreativeTabs.INVENTORY) {
+            if (tab != CreativeTabs.SEARCH
+                    && tab != CreativeTabs.INVENTORY
+                    && tab != CreativeTabs.HOTBAR) {
                 return false;
             }
         }
@@ -519,6 +529,7 @@ public class GuiPickBlock extends InventoryEffectRenderer {
 
         if (this.isPointInRegion(j + 3, k + 3, 23, 27, mouseX, mouseY)) {
             if (tab == CreativeTabs.INVENTORY) return false;
+            if (tab == CreativeTabs.HOTBAR) return false;
             this.drawHoveringText(I18n.format(tab.getTranslatedTabLabel(), new Object[0]), mouseX, mouseY);
             return true;
         } else {
@@ -532,6 +543,7 @@ public class GuiPickBlock extends InventoryEffectRenderer {
      */
     protected void drawTab(CreativeTabs tab) {
         if (tab == CreativeTabs.INVENTORY) return;
+        if (tab == CreativeTabs.HOTBAR) return;
         boolean flag = tab.getTabIndex() == selectedTabIndex;
         boolean flag1 = tab.isTabInFirstRow();
         int i = tab.getTabColumn();
@@ -580,6 +592,7 @@ public class GuiPickBlock extends InventoryEffectRenderer {
      * Fired when a control is clicked. This is the equivalent of
      * ActionListener.actionPerformed(ActionEvent e).
      */
+
     @Override
     protected void actionPerformed(GuiButton button) {
         switch (button.id) {
@@ -592,6 +605,11 @@ public class GuiPickBlock extends InventoryEffectRenderer {
 
                 Minecraft.getMinecraft().displayGuiScreen(parent);
                 break;
+            case 101:
+                tabPage = Math.max(tabPage - 1, 0);
+                break;
+            case 102:
+                tabPage = Math.min(tabPage + 1, maxPages);
         }
     }
 }
