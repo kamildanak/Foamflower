@@ -16,6 +16,7 @@ buildscript {
     }
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'maven'
 
 group = "com.kamildanak.minecraft.foamflower" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "foamflower"
@@ -64,4 +65,12 @@ artifacts {
     archives deobfJar
     archives sourceJar
     archives jar
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: "file://localhost/"+projectDir+"/../local-repo/")
+        }
+    }
 }
