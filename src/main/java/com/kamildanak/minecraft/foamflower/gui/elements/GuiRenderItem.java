@@ -152,7 +152,7 @@ public class GuiRenderItem implements IResourceManagerReloadListener {
             BakedQuad bakedquad = quads.get(i);
             int k = color;
             if (flag && bakedquad.hasTintIndex()) {
-                k = this.itemColors.getColorFromItemstack(stack, bakedquad.getTintIndex());
+                k = this.itemColors.colorMultiplier(stack, bakedquad.getTintIndex());
                 if (EntityRenderer.anaglyphEnable) {
                     k = TextureUtil.anaglyphColor(k);
                 }
@@ -270,22 +270,22 @@ public class GuiRenderItem implements IResourceManagerReloadListener {
                 CrashReport crashreport = CrashReport.makeCrashReport(var8, "Rendering item");
                 CrashReportCategory crashreportcategory = crashreport.makeCategory("Item being rendered");
                 crashreportcategory.addCrashSection("Item Type", new Callable() {
-                    public String call() throws Exception {
+                    public String call() {
                         return String.valueOf(p_184391_2_.getItem());
                     }
                 });
                 crashreportcategory.addCrashSection("Item Aux", new Callable() {
-                    public String call() throws Exception {
+                    public String call() {
                         return String.valueOf(p_184391_2_.getMetadata());
                     }
                 });
                 crashreportcategory.addCrashSection("Item NBT", new Callable() {
-                    public String call() throws Exception {
+                    public String call() {
                         return String.valueOf(p_184391_2_.getTagCompound());
                     }
                 });
                 crashreportcategory.addCrashSection("Item Foil", new Callable() {
-                    public String call() throws Exception {
+                    public String call() {
                         return String.valueOf(p_184391_2_.hasEffect());
                     }
                 });
