@@ -25,8 +25,8 @@ targetCompatibility = "1.8"
 sourceCompatibility = "1.8"
 
 minecraft {
-    version = "1.12.2-14.23.0.2491"
-    mappings = "snapshot_20170624"
+    version = "1.12.2-14.23.1.2555"
+    mappings = "snapshot_20171003"
 
     if (file("../run").exists()) {
         runDir = "../run"
