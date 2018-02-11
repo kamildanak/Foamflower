@@ -1,5 +1,6 @@
 package com.kamildanak.minecraft.foamflower.gui.layouts;
 
+import com.kamildanak.minecraft.foamflower.gui.IGuiWrapper;
 import com.kamildanak.minecraft.foamflower.gui.elements.GuiElement;
 import org.lwjgl.opengl.GL11;
 
@@ -16,34 +17,31 @@ public class CenteredLayout extends AbstractLayout {
         cY = (y + h) / 2;
     }
 
-    @Override
-    public int getHeight() {
-        if (hidden) return 0;
-        return h;
-    }
-
-    @Override
-    public int getWidth() {
-        if (hidden) return 0;
-        return w;
+    public CenteredLayout(IGuiWrapper iGuiWrapper, int x, int y, int w, int h,
+                          boolean horizontal, boolean vertical, GuiElement... elements) {
+        super(iGuiWrapper, x, y, w, h, elements);
+        this.horizontal = horizontal;
+        this.vertical = vertical;
+        cX = (x + w) / 2;
+        cY = (y + h) / 2;
     }
 
     public void render() {
-        cX = (w) / 2;
-        cY = (h) / 2;
+        cX = getWidth() / 2;
+        cY = getHeight() / 2;
         if (getChildren() == null || hidden) {
             return;
         }
         for (GuiElement e : getChildren()) {
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             if (horizontal)
-                e.x = cX - e.getWidth() / 2;
+                e.setX(cX - e.getWidth() / 2);
             else
-                e.x = x;
+                e.setX(getX());
             if (vertical)
-                e.y = cY - e.getHeight() / 2;
+                e.setY(cY - e.getHeight() / 2);
             else
-                e.y = y;
+                e.setY(getY());
             e.render();
         }
     }

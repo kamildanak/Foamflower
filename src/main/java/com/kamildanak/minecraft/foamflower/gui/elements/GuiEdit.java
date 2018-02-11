@@ -14,7 +14,7 @@ public class GuiEdit extends GuiElement {
 
     @Override
     public void onAdded() {
-        field = new GuiTextField(0, gui.fontRenderer(), x, y, w, h);
+        field = new GuiTextField(0, gui.fontRenderer(), getX(), getY(), getWidth(), getHeight());
         setText(tempString);
     }
 
@@ -57,14 +57,26 @@ public class GuiEdit extends GuiElement {
     }
 
     @Override
-    public int getHeight() {
-        if (hidden) return 0;
-        return h;
+    public void setX(int x) {
+        super.setX(x);
+        field.x = x;
     }
 
     @Override
-    public int getWidth() {
-        if (hidden) return 0;
-        return w;
+    public void setY(int y) {
+        super.setY(y);
+        field.y = y;
+    }
+
+    @Override
+    public void setHeight(int h) {
+        super.setHeight(h);
+        field.height = h;
+    }
+
+    @Override
+    public void setWidth(int w) {
+        super.setWidth(w);
+        field.width = w;
     }
 }

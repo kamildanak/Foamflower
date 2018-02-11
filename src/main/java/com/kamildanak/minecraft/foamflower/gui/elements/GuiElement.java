@@ -8,10 +8,7 @@ import org.lwjgl.opengl.GL11;
 import java.util.ArrayList;
 
 public abstract class GuiElement {
-    public int x;
-    public int y;
-    public int w;
-    public int h;
+    public int x, y, w, h;
     public boolean hidden;
     public boolean center;
 
@@ -161,7 +158,53 @@ public abstract class GuiElement {
         }
     }
 
-    public abstract int getHeight();
+    public int getX() {
+        return x;
+    }
 
-    public abstract int getWidth();
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public int getWidth() {
+        if (hidden) return 0;
+        return w;
+    }
+
+    public void setWidth(int w) {
+        this.w = w;
+    }
+
+    public int getHeight() {
+        if (hidden) return 0;
+        return h;
+    }
+
+    public void setHeight(int h) {
+        this.h = h;
+    }
+
+    public boolean isHidden() {
+        return hidden;
+    }
+
+    public void setHidden(boolean hidden) {
+        this.hidden = hidden;
+    }
+
+    public boolean isCenter() {
+        return center;
+    }
+
+    public void setCenter(boolean center) {
+        this.center = center;
+    }
 }

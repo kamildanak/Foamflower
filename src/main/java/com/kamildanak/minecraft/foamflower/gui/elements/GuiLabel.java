@@ -37,7 +37,7 @@ public class GuiLabel extends GuiElement {
     public void render() {
         if (hidden) return;
         GlStateManager.color(0, 0, 0, 0);
-        gui.drawString(caption, x, y + 1, color);
+        gui.drawString(caption, getX(), getY() + 1, color);
     }
 
     @Override

@@ -25,7 +25,7 @@ public class GuiLabelMultiline extends GuiLabel {
         GlStateManager.color(0, 0, 0, 0);
         int offset = 1;
         for (String s : getCaption().split("\n")) {
-            gui.drawString(s, x, y + offset, super.getColor());
+            gui.drawString(s, getX(), getY() + offset, super.getColor());
             offset += gui.fontRenderer().FONT_HEIGHT;
         }
     }

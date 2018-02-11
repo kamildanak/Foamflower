@@ -1,5 +1,6 @@
 package com.kamildanak.minecraft.foamflower.gui.layouts;
 
+import com.kamildanak.minecraft.foamflower.gui.IGuiWrapper;
 import com.kamildanak.minecraft.foamflower.gui.elements.GuiElement;
 import org.lwjgl.opengl.GL11;
 
@@ -7,8 +8,14 @@ public class LinearLayout extends AbstractLayout {
     private int height, width;
     private boolean horizontal;
 
+    @Deprecated
     public LinearLayout(int x, int y, boolean horizontal) {
         super(x, y, 0, 0);
+        this.horizontal = horizontal;
+    }
+
+    public LinearLayout(IGuiWrapper guiWrapper, int x, int y, boolean horizontal, GuiElement... elements) {
+        super(guiWrapper, x, y, 0, 0, elements);
         this.horizontal = horizontal;
     }
 
@@ -23,9 +30,9 @@ public class LinearLayout extends AbstractLayout {
         if (horizontal) {
             for (GuiElement e : getChildren()) {
                 GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-                e.x = x + offset;
-                e.y = y;
-                if (e.center) e.y = y + getHeight() / 2 - e.getHeight() / 2;
+                e.setX(getX() + offset);
+                e.setY(getY());
+                if (e.center) e.setY(getY() + getHeight() / 2 - e.getHeight() / 2);
                 e.render();
                 int w = e.getWidth();
                 offset += w + ((w == 0) ? 0 : 6);
@@ -33,9 +40,9 @@ public class LinearLayout extends AbstractLayout {
         } else {
             for (GuiElement e : getChildren()) {
                 GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-                e.x = x;
-                if (e.center) e.x = x + getWidth() / 2 - e.getWidth() / 2;
-                e.y = y + offset;
+                e.setX(getX());
+                if (e.center) e.setX(getX() + getWidth() / 2 - e.getWidth() / 2);
+                e.setY(getY() + offset);
                 e.render();
                 offset += e.getHeight();
             }

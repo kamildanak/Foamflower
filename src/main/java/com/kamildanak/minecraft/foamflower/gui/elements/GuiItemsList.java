@@ -22,7 +22,7 @@ public class GuiItemsList extends GuiElement {
         GL11.glPushMatrix();
         GL11.glTranslatef(0.0f, 0.0f, -100.0f);
         GL11.glDisable(GL11.GL_LIGHTING);
-        drawItemsWithLabel(gui.fontRenderer(), x, y, items);
+        drawItemsWithLabel(gui.fontRenderer(), getX(), getY(), items);
         GL11.glDisable(GL11.GL_LIGHTING);
         GL11.glPopMatrix();
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
@@ -60,13 +60,14 @@ public class GuiItemsList extends GuiElement {
     }
 
     private void drawItemsWithLabel(FontRenderer fontRenderer, int x, int y, NonNullList<ItemStack> itemStacks) {
-        w = 0;
+        int w = 0;
         for (ItemStack itemStack : itemStacks) {
             if (itemStack.isEmpty()) continue;
             this.renderItemIntoGUI(itemStack, x + w, y - 4);
             drawNumberForItem(fontRenderer, itemStack, x + w, y - 4);
             w += 18;
         }
+        setWidth(w);
     }
 
 

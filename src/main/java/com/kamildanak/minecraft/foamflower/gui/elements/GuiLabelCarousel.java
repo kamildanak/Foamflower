@@ -31,7 +31,7 @@ public class GuiLabelCarousel extends GuiLabelMultiline {
         if (caption == null) return;
         for (String s : caption.split("\n")) {
             if (s.trim().length() == 0) continue;
-            gui.drawString(s, x, y + offset, 0xffffff);
+            gui.drawString(s, getX(), getY() + offset, 0xffffff);
             offset += gui.fontRenderer().FONT_HEIGHT + 2;
         }
     }

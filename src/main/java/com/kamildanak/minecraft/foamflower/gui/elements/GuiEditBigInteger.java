@@ -50,16 +50,4 @@ public class GuiEditBigInteger extends GuiEdit {
         ev.handled = true;
 
     }
-
-    @Override
-    public int getHeight() {
-        if (hidden) return 0;
-        return h;
-    }
-
-    @Override
-    public int getWidth() {
-        if (hidden) return 0;
-        return w;
-    }
 }

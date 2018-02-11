@@ -58,8 +58,8 @@ public class GuiExButton extends GuiElement {
             box = boxOver;
             color = 0xffffff70;
         }
-        box.render(gui, x, y, w, h);
-        gui.drawCenteredString(caption, x + w / 2, y + h / 4 + 5, color);
+        box.render(gui, getX(), getY(), getWidth(), getHeight());
+        gui.drawCenteredString(caption, getX() + getWidth() / 2, getY() + getHeight() / 4 + 5, color);
     }
 
     @Override
@@ -76,17 +76,5 @@ public class GuiExButton extends GuiElement {
         SoundHandler soundHandler = new SoundHandler(mc.getResourceManager(), mc.gameSettings);
         soundHandler.playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1.0F));
         onClick();
-    }
-
-    @Override
-    public int getHeight() {
-        if (hidden) return 0;
-        return h;
-    }
-
-    @Override
-    public int getWidth() {
-        if (hidden) return 0;
-        return w;
     }
 }
