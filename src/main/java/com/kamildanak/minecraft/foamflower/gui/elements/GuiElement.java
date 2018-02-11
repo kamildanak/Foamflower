@@ -74,7 +74,12 @@ public abstract class GuiElement {
     }
 
     boolean isMouseOver(InputMouseEvent ev) {
-        return ev.x >= x && ev.x < x + w && ev.y >= y && ev.y < y + h;
+        return isMouseOver(ev.x, ev.y);
+    }
+
+    public boolean isMouseOver(int mouseX, int mouseY) {
+
+        return mouseX >= x && mouseX < x + w && mouseY >= y && mouseY < y + h;
     }
 
     public void mouseDown(InputMouseEvent ev) {

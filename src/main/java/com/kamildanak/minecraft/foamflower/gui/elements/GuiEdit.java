@@ -4,12 +4,17 @@ import com.kamildanak.minecraft.foamflower.gui.input.InputKeyboardEvent;
 import com.kamildanak.minecraft.foamflower.gui.input.InputMouseEvent;
 import net.minecraft.client.gui.GuiTextField;
 
+import java.util.ArrayList;
+import java.util.function.Consumer;
+
 public class GuiEdit extends GuiElement {
     GuiTextField field;
     private String tempString = "";
+    private ArrayList<Consumer<String>> consumerList;
 
     public GuiEdit(int x, int y, int w, int h) {
         super(x, y, w, h);
+        consumerList = new ArrayList<>();
     }
 
     @Override
@@ -36,6 +41,7 @@ public class GuiEdit extends GuiElement {
 
     @Override
     public void render() {
+        if (hidden) return;
         field.drawTextBox();
     }
 
@@ -54,6 +60,9 @@ public class GuiEdit extends GuiElement {
 
         field.textboxKeyTyped(ev.character, ev.key);
         ev.handled = true;
+        for (Consumer<String> consumer : consumerList) {
+            consumer.accept(field.getText());
+        }
     }
 
     @Override
@@ -78,5 +87,9 @@ public class GuiEdit extends GuiElement {
     public void setWidth(int w) {
         super.setWidth(w);
         field.width = w;
+    }
+
+    public void addChangeListener(Consumer<String> consumer) {
+        consumerList.add(consumer);
     }
 }

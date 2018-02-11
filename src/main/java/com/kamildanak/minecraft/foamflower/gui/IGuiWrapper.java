@@ -17,4 +17,6 @@ public interface IGuiWrapper {
     void drawCenteredString(String caption, int i, int i1, int color);
 
     Minecraft getMinecraft();
+
+    void drawTexturedModalRect(int x, int y, int textureX, int textureY, int elementWidth, int elementHeight);
 }

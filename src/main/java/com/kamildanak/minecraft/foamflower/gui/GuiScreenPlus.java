@@ -5,10 +5,11 @@ import com.kamildanak.minecraft.foamflower.gui.elements.GuiElement;
 import com.kamildanak.minecraft.foamflower.gui.input.InputKeyboardEvent;
 import com.kamildanak.minecraft.foamflower.gui.input.InputMouseEvent;
 import com.kamildanak.minecraft.foamflower.gui.layouts.AbsoluteLayout;
+import com.kamildanak.minecraft.foamflower.gui.layouts.AbstractLayout;
 import com.kamildanak.minecraft.foamflower.inventory.DummyContainer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.renderer.InventoryEffectRenderer;
 import net.minecraft.inventory.Container;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -16,7 +17,7 @@ import org.lwjgl.opengl.GL11;
 
 import java.io.IOException;
 
-public class GuiScreenPlus extends GuiContainer implements IGuiWrapper {
+public class GuiScreenPlus extends InventoryEffectRenderer implements IGuiWrapper {
     public int screenW;
     public int screenH;
     public int screenX;
@@ -31,13 +32,17 @@ public class GuiScreenPlus extends GuiContainer implements IGuiWrapper {
     boolean[] downButtons = new boolean[12];
     InputKeyboardEvent keyboardEvent = new InputKeyboardEvent();
 
-    public GuiScreenPlus(Container container, int w, int h, String backgroundTexture) {
+    public GuiScreenPlus(Container container, int w, int h, String backgroundTexture, AbstractLayout root) {
         super(container);
-        root = new AbsoluteLayout(0, 0);
-        root.gui = this;
+        this.root = root;
+        this.root.gui = this;
         this.screenW = w;
         this.screenH = h;
         this.backgroundTexture = backgroundTexture;
+    }
+
+    public GuiScreenPlus(Container container, int w, int h, String backgroundTexture) {
+        this(container, w, h, backgroundTexture, new AbsoluteLayout(0, 0));
     }
 
     public GuiScreenPlus(int w, int h, String backgroundTexture) {
@@ -54,6 +59,12 @@ public class GuiScreenPlus extends GuiContainer implements IGuiWrapper {
         root.onAdded();
 
         Keyboard.enableRepeatEvents(true);
+    }
+
+    @Override
+    public void onGuiClosed() {
+        super.onGuiClosed();
+        Keyboard.enableRepeatEvents(false);
     }
 
     @Override

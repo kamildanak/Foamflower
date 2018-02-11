@@ -39,8 +39,7 @@ public class ContainerPickBlock extends Container {
 
     public ContainerPickBlock() {
         Set<ResourceLocation> itemReg = Item.REGISTRY.getKeys();
-        List<ResourceLocation> itemArray = new ArrayList<>();
-        itemArray.addAll(itemReg);
+        List<ResourceLocation> itemArray = new ArrayList<>(itemReg);
 
         for (ResourceLocation itemName : itemArray) {
             Item item = Item.REGISTRY.getObject(itemName);
@@ -97,7 +96,7 @@ public class ContainerPickBlock extends Container {
     }
 
     public boolean canScroll() {
-        return true;
+        return itemList.size() / width - height + 1 > 0;
     }
 
     /**
