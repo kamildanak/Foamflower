@@ -6,6 +6,9 @@ def patchVersion = "0" //Bugfixes.
 def suffix = "-beta1" // "-final" - last release for that Minecraft, "-betaX" - Pre-releases, "-rcX"-Release Candidates
 version = mcVersion+"-"+majorModVersion+"."+majorApiModVersion+"."+minorModVersion+"."+patchVersion+suffix
 
+def env = System.getenv()
+def minecraftModdingEnv = env['MinecraftModdingEnv'] != null ? env['MinecraftModdingEnv'].trim() : "dev"
+
 buildscript {
     repositories {
         jcenter()
